@@ -27,11 +27,11 @@ def playTestSound5():
 
 # Mapping from keycode to buttons interface
 keycodeToButtonInterface = {
-  "BTN_JOYSTICK-BTN_TRIGGER": "K1",
-  "BTN_THUMB": "K2",
-  "BTN_THUMB2": "K3",
-  "BTN_TOP": "K4",
-  "BTN_TOP2": "K5",
+    "BTN_JOYSTICK-BTN_TRIGGER": "K1",
+    "BTN_THUMB": "K2",
+    "BTN_THUMB2": "K3",
+    "BTN_TOP": "K4",
+    "BTN_TOP2": "K5",
 }
 
 # Mapping from button interface to function
@@ -45,7 +45,7 @@ buttonInterfaceToFunction = {
 
 # Parse arguments
 parser = argparse.ArgumentParser("handleButtons.py")
-parser.add_argument("deviceId", help="Device ID", type=int)
+parser.add_argument("deviceId", help="Device ID", type=int, nargs='?')
 args = parser.parse_args()
 print(args.deviceId)
 
