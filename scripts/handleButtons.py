@@ -5,6 +5,7 @@ import sys
 import logging
 import subprocess
 from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
+import argparse
 
 logger = logging.getLogger(__name__)
 
@@ -42,21 +43,31 @@ buttonInterfaceToFunction = {
     "K5": playTestSound5,
 }
 
+# Parse arguments
+parser = argparse.ArgumentParser("handleButtons.py")
+parser.add_argument("deviceId", help="USB slot (1-4)", type=int)
+args = parser.parse_args()
+print(args.deviceId)
+
 # Get device 
-try:
-    devices = [InputDevice(fn) for fn in list_devices()]
-    i = 0
-    print("")
-    print("Choose the Buttons USB Encoder device from the list")
+devices = [InputDevice(fn) for fn in list_devices()]
 
-    for device in devices:
-        print(i, device.path, device.name, device.phys)
-        i += 1
+if args.deviceId > 0
+    currentDevice = devices[args.deviceId]
+else
+    try:
+        i = 0
+        print("")
+        print("Choose the Buttons USB Encoder device from the list")
 
-    deviceId = int(input('Device Number: '))
-    currentDevice = devices[deviceId]
-except KeyboardInterrupt:
-    sys.exit("Aborted to register Buttons USB Encoder.")
+        for device in devices:
+            print(i, device.path, device.name, device.phys)
+            i += 1
+
+        deviceId = int(input('Device Number: '))
+        currentDevice = devices[deviceId]
+    except KeyboardInterrupt:
+        sys.exit("Aborted to register Buttons USB Encoder.")
 
 # Handle events
 try:
