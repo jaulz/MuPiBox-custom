@@ -21,7 +21,7 @@ keycodeToButtonInterface = {
 }
 
 # Mapping from button interface to function
-buttonInterfaceToFunction {
+buttonInterfaceToFunction = {
     "K1": playTestSound,
     "K2": playTestSound,
     "K3": playTestSound,
