@@ -52,7 +52,7 @@ print(args.deviceId)
 # Get device 
 devices = [InputDevice(fn) for fn in list_devices()]
 
-if args.deviceId > 0:
+if args.deviceId is not None:
     currentDevice = devices[args.deviceId]
 else:
     try:
