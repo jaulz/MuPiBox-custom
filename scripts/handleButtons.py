@@ -2,8 +2,9 @@
 
 import sys
 
-from evdev import InputDevice, list_devices
+from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
 
+# Get device 
 try:
     devices = [InputDevice(fn) for fn in list_devices()]
     i = 0
@@ -13,8 +14,34 @@ try:
         print(i, dev.name)
         i += 1
 
-    dev_id = int(input('Device Number: '))
+    deviceId = int(input('Device Number: '))
 
     print(devices[dev_id].name)
 except KeyboardInterrupt:
     sys.exit("Aborted to register Buttons USB Encoder.")
+
+# Handle events
+try:
+    for event in current_device().read_loop():
+        if event.type == ecodes.EV_KEY:
+            keyEvent = categorize(event)
+
+            if keyEvent.keystate == KeyEvent.key_down:
+                keycode = keyEvent.keycode
+
+                if type(keycode) is list:
+                    keycode = '-'.join(sorted(keycode))
+                try:
+                    print(keycode)
+                    #function_name = button_map[button_string]
+                    #function_args = button_map[button_string + "_args"]
+                    #try:
+                    #    getattr(function_calls, function_name)(function_args)
+                    #except Exception:
+                    #    logger.warning(
+                    #        "Function " + function_name
+                    #        + " not found in function_calls.py (mapped from button: " + button_string + ")")
+                except KeyError:
+                    logger.warning("Button " + keycode + " not mapped to any function.")
+except Exception:
+    logger.error("An error with Buttons USB Encoder occurred.")
