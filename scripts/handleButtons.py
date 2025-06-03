@@ -24,7 +24,7 @@ except KeyboardInterrupt:
 
 # Handle events
 try:
-    for event in current_device().read_loop():
+    for event in currentDevice.read_loop():
         if event.type == ecodes.EV_KEY:
             keyEvent = categorize(event)
 
