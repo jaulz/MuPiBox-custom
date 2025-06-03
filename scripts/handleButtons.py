@@ -7,14 +7,37 @@ from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
 
 logger = logging.getLogger(__name__)
 
+# Functions
+def playTestSound():
+  print("Hello from a function")
+
+# Mapping from keycode to buttons interface
+keycodeToButtonInterface = {
+  "BTN_JOYSTICK-BTN_TRIGGER": "K1",
+  "BTN_THUMB": "K2",
+  "BTN_THUMB2": "K3",
+  "BTN_TOP": "K4",
+  "BTN_TOP2": "K5",
+}
+
+# Mapping from button interface to function
+buttonInterfaceToFunction {
+    "K1": playTestSound,
+    "K2": playTestSound,
+    "K3": playTestSound,
+    "K4": playTestSound,
+    "K5": playTestSound,
+}
+
 # Get device 
 try:
     devices = [InputDevice(fn) for fn in list_devices()]
     i = 0
     print("")
     print("Choose the Buttons USB Encoder device from the list")
-    for dev in devices:
-        print(i, dev.name)
+
+    for device in devices:
+        print(i, device.name)
         i += 1
 
     deviceId = int(input('Device Number: '))
@@ -33,8 +56,14 @@ try:
 
                 if type(keycode) is list:
                     keycode = '-'.join(sorted(keycode))
+
                 try:
                     print(keycode)
+                    buttonInterface = keycodeToButtonInterface[keycode]
+                    print(buttonInterface)
+                    function = buttonInterfaceToFunction[buttonInterface]
+
+                    function()
                     #function_name = button_map[button_string]
                     #function_args = button_map[button_string + "_args"]
                     #try:
