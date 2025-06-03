@@ -5,6 +5,8 @@ import sys
 import logging
 from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
 
+logger = logging.getLogger(__name__)
+
 # Get device 
 try:
     devices = [InputDevice(fn) for fn in list_devices()]
