@@ -54,7 +54,7 @@ devices = [InputDevice(fn) for fn in list_devices()]
 
 if args.deviceId > 0:
     currentDevice = devices[args.deviceId]
-else
+else:
     try:
         i = 0
         print("")
