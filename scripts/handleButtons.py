@@ -3,13 +3,14 @@
 import sys
 
 import logging
+import subprocess
 from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
 
 logger = logging.getLogger(__name__)
 
 # Functions
 def playTestSound():
-  print("Hello from a function")
+    subprocess.call(["aplay", "/usr/share/sounds/alsa/Front_Center.wav"])
 
 # Mapping from keycode to buttons interface
 keycodeToButtonInterface = {
