@@ -15,8 +15,7 @@ try:
         i += 1
 
     deviceId = int(input('Device Number: '))
-
-    print(devices[dev_id].name)
+    currentDevice = devices[deviceId]
 except KeyboardInterrupt:
     sys.exit("Aborted to register Buttons USB Encoder.")
 
