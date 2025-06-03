@@ -45,14 +45,14 @@ buttonInterfaceToFunction = {
 
 # Parse arguments
 parser = argparse.ArgumentParser("handleButtons.py")
-parser.add_argument("deviceId", help="USB slot (1-4)", type=int)
+parser.add_argument("deviceId", help="Device ID", type=int)
 args = parser.parse_args()
 print(args.deviceId)
 
 # Get device 
 devices = [InputDevice(fn) for fn in list_devices()]
 
-if args.deviceId > 0
+if args.deviceId > 0:
     currentDevice = devices[args.deviceId]
 else
     try:
