@@ -50,7 +50,7 @@ try:
     print("Choose the Buttons USB Encoder device from the list")
 
     for device in devices:
-        print(i, device.name)
+        print(i, device.path, device.name, device.phys)
         i += 1
 
     deviceId = int(input('Device Number: '))
