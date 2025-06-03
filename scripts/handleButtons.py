@@ -2,6 +2,7 @@
 
 import sys
 
+import logging
 from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
 
 # Get device 
