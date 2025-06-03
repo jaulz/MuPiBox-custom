@@ -9,8 +9,20 @@ from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
 logger = logging.getLogger(__name__)
 
 # Functions
-def playTestSound():
+def playTestSound1():
     subprocess.call(["aplay", "/usr/share/sounds/alsa/Front_Center.wav"])
+
+def playTestSound2():
+    subprocess.call(["aplay", "/usr/share/sounds/alsa/Front_Left.wav"])
+
+def playTestSound3():
+    subprocess.call(["aplay", "/usr/share/sounds/alsa/Front_Right.wav"])
+
+def playTestSound4():
+    subprocess.call(["aplay", "/usr/share/sounds/alsa/Rear_Left.wav"])
+
+def playTestSound5():
+    subprocess.call(["aplay", "/usr/share/sounds/alsa/Rear_Right.wav"])
 
 # Mapping from keycode to buttons interface
 keycodeToButtonInterface = {
@@ -23,11 +35,11 @@ keycodeToButtonInterface = {
 
 # Mapping from button interface to function
 buttonInterfaceToFunction = {
-    "K1": playTestSound,
-    "K2": playTestSound,
-    "K3": playTestSound,
-    "K4": playTestSound,
-    "K5": playTestSound,
+    "K1": playTestSound1,
+    "K2": playTestSound2,
+    "K3": playTestSound3,
+    "K4": playTestSound4,
+    "K5": playTestSound5,
 }
 
 # Get device 
