@@ -45,7 +45,7 @@ buttonInterfaceToFunction = {
 
 # Parse arguments
 parser = argparse.ArgumentParser("handleButtons.py")
-parser.add_argument("deviceId", help="Device ID", type=int, nargs='?')
+parser.add_argument("--deviceId", help="Device ID", type=int, nargs='?')
 args = parser.parse_args()
 print(args.deviceId)
 
