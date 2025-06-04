@@ -10,5 +10,5 @@ sudo apt-get --yes install python3-evdev
 
 sudo cp -v /home/dietpi/MuPiBox-custom/services/mupi_buttons.service /etc/systemd/system/mupi_buttons.service
 sudo systemctl daemon-reload
-sudo systemctl start mupi_buttons.service
 sudo systemctl enable mupi_buttons.service
+sudo systemctl restart mupi_buttons.service
