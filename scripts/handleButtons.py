@@ -16,7 +16,7 @@ def togglePlay():
     response.raise_for_status()
     
     data = response.json()
-    
+    print(data)
     if data.pause == True:
         requests.get(url="http://localhost:5005/play")
     else:
