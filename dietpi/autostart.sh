@@ -6,7 +6,7 @@ echo "cd; curl -L https://raw.githubusercontent.com/splitti/MuPiBox/main/autoset
 # Setup custom scripts
 git clone https://github.com/jaulz/MuPiBox-custom.git /home/dietpi/MuPiBox-custom
 
-bash /home/dietpi/MuPiBox-custom/scripts/setup.sh
+. /home/dietpi/MuPiBox-custom/scripts/setup.sh
 
 # Reboot at last
 reboot
