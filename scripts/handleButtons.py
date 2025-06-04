@@ -17,11 +17,11 @@ def togglePlay():
     
     data = response.json()
     print(data)
-    if "pause" in data:
-        if data["pause"] == True:
-            requests.get(url="http://localhost:5005/play")
-        else:
+    if "playing" in data:
+        if data["playing"] == True:
             requests.get(url="http://localhost:5005/pause")
+        else:
+            requests.get(url="http://localhost:5005/playing")
 
 def turnVolumeUp():
     response = requests.get(url="http://192.168.1.20:5005/0/volume/+5")
