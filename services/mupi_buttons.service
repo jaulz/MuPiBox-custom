@@ -1,0 +1,14 @@
+[Unit]
+Description=MuPiBox Buttons USB Encoder Service
+After=network.target iptables.service firewalld.service
+
+[Service]
+User=dietpi
+Group=dietpi
+Restart=always
+RestartSec=10
+WorkingDirectory=/home/dietpi/MuPiBox-custom
+ExecStart=/home/dietpi/MuPiBox-custom/scripts/handleButtons.py --deviceId=0
+
+[Install]
+WantedBy=multi-user.target
