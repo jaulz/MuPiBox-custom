@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#exec {tracefd}>/home/dietpi/.mupibox/autosetup.log; BASH_XTRACEFD=$tracefd; PS4=':$LINENO+'; set -x
 
 # Install required utilities
 sudo apt-get --yes install vim >&3 2>&3
