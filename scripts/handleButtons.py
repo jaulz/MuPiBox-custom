@@ -2,6 +2,7 @@
 
 import sys
 
+import requests
 import logging
 import subprocess
 from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
@@ -10,8 +11,16 @@ import argparse
 logger = logging.getLogger(__name__)
 
 # Functions
-def playTestSound1():
-    subprocess.call(["aplay", "/usr/share/sounds/alsa/Front_Center.wav"])
+def togglePlay():
+    response = requests.get(url="http://localhost:5005/local")
+    response.raise_for_status()
+    
+    data = response.json()
+    
+    if data.pause == True:
+        requests.get(url="http://localhost:5005/play")
+    else:
+        requests.get(url="http://localhost:5005/pause")
 
 def playTestSound2():
     subprocess.call(["aplay", "/usr/share/sounds/alsa/Front_Left.wav"])
@@ -36,7 +45,7 @@ keycodeToButtonInterface = {
 
 # Mapping from button interface to function
 buttonInterfaceToFunction = {
-    "K1": playTestSound1,
+    "K1": togglePlay,
     "K2": playTestSound2,
     "K3": playTestSound3,
     "K4": playTestSound4,
