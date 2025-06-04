@@ -23,11 +23,17 @@ def togglePlay():
         else:
             requests.get(url="http://localhost:5005/pause")
 
-def playTestSound2():
-    subprocess.call(["aplay", "/usr/share/sounds/alsa/Front_Left.wav"])
+def turnVolumeUp():
+    response = requests.get(url="http://192.168.1.20:5005/0/volume/+5")
+    response.raise_for_status()
+    
+    data = response.json()
 
-def playTestSound3():
-    subprocess.call(["aplay", "/usr/share/sounds/alsa/Front_Right.wav"])
+def turnVolumeDown():
+    response = requests.get(url="http://192.168.1.20:5005/0/volume/+5")
+    response.raise_for_status()
+    
+    data = response.json()
 
 def playTestSound4():
     subprocess.call(["aplay", "/usr/share/sounds/alsa/Rear_Left.wav"])
@@ -47,8 +53,8 @@ keycodeToButtonInterface = {
 # Mapping from button interface to function
 buttonInterfaceToFunction = {
     "K1": togglePlay,
-    "K2": playTestSound2,
-    "K3": playTestSound3,
+    "K2": turnVolumeUp,
+    "K3": turnVolumeDown,
     "K4": playTestSound4,
     "K5": playTestSound5,
 }
