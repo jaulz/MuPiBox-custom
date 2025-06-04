@@ -30,16 +30,22 @@ def turnVolumeUp():
     data = response.json()
 
 def turnVolumeDown():
-    response = requests.get(url="http://192.168.1.20:5005/0/volume/+5")
+    response = requests.get(url="http://192.168.1.20:5005/0/volume/-5")
     response.raise_for_status()
     
     data = response.json()
 
-def playTestSound4():
-    subprocess.call(["aplay", "/usr/share/sounds/alsa/Rear_Left.wav"])
+def playNextTrack():
+    response = requests.get(url="http://192.168.1.20:5005/0/next")
+    response.raise_for_status()
+    
+    data = response.json()
 
-def playTestSound5():
-    subprocess.call(["aplay", "/usr/share/sounds/alsa/Rear_Right.wav"])
+def playPreviousTrack():
+    response = requests.get(url="http://192.168.1.20:5005/0/previous")
+    response.raise_for_status()
+    
+    data = response.json()
 
 # Mapping from keycode to buttons interface
 keycodeToButtonInterface = {
@@ -55,8 +61,8 @@ buttonInterfaceToFunction = {
     "K1": togglePlay,
     "K2": turnVolumeUp,
     "K3": turnVolumeDown,
-    "K4": playTestSound4,
-    "K5": playTestSound5,
+    "K4": playNextTrack,
+    "K5": playPreviousTrack,
 }
 
 # Parse arguments
