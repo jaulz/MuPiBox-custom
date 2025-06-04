@@ -21,7 +21,7 @@ def togglePlay():
         if data["playing"] == True:
             requests.get(url="http://localhost:5005/pause")
         else:
-            requests.get(url="http://localhost:5005/playing")
+            requests.get(url="http://localhost:5005/play")
 
 def turnVolumeUp():
     response = requests.get(url="http://192.168.1.20:5005/0/volume/+5")
