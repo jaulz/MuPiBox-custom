@@ -17,10 +17,11 @@ def togglePlay():
     
     data = response.json()
     print(data)
-    if data.pause == True:
-        requests.get(url="http://localhost:5005/play")
-    else:
-        requests.get(url="http://localhost:5005/pause")
+    if "pause" in data:
+        if data["pause"] == True:
+            requests.get(url="http://localhost:5005/play")
+        else:
+            requests.get(url="http://localhost:5005/pause")
 
 def playTestSound2():
     subprocess.call(["aplay", "/usr/share/sounds/alsa/Front_Left.wav"])
