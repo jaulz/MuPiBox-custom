@@ -77,10 +77,16 @@ def playTestSound():
 def play():
     response = enque('player', 'ctrl', 'play', args={})
 
+def pause():
+    response = enque('player', 'ctrl', 'pause', args={})
+
 def togglePlay():
     response = enque('player', 'ctrl', 'playerstatus', args={})
     print(response)
-    response = enque('player', 'ctrl', 'toggle', args={})
+    if response["state"] == 'play':
+        pause()
+    else:
+        play()
 
 def turnVolumeUp():
     response = enque('volume', 'ctrl', 'change_volume', args=[10])
