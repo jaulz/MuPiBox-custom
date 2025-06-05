@@ -75,6 +75,8 @@ def playTestSound():
     subprocess.call(["aplay", "/usr/share/sounds/alsa/Rear_Left.wav"])
 
 def play():
+    response = enque('player', 'ctrl', 'playerstatus', args={})
+    print(response)
     response = enque('player', 'ctrl', 'play', args={})
 
 def togglePlay():
@@ -87,11 +89,9 @@ def turnVolumeDown():
     response = enque('volume', 'ctrl', 'change_volume', args=[-10])
 
 def playNextTrack():
-    play()
     response = enque('player', 'ctrl', 'next', args={})
 
 def playPreviousTrack():
-    play()
     response = enque('player', 'ctrl', 'prev', args={})
 
 # Mapping from keycode to buttons interface
