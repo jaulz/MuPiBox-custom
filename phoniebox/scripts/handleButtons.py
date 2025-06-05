@@ -75,7 +75,7 @@ def playTestSound():
     subprocess.call(["aplay", "/usr/share/sounds/alsa/Rear_Left.wav"])
 
 def togglePlay():
-    response = enque('player', 'ctrl', 'play', args={})
+    response = enque('player', 'ctrl', 'toggle', args={})
 
 def turnVolumeUp():
     response = requests.get(url="http://192.168.1.20:5005/0/volume/+5")
