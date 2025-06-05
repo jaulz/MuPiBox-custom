@@ -2,6 +2,7 @@
 
 import sys
 
+import json
 import requests
 import logging
 import subprocess
@@ -9,24 +10,71 @@ from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
 import argparse
 import zmq
 
-jukeboxDirectory = '/home/julian/RPi-Jukebox-RFID/src/jukebox'
-
-if jukeboxDirectory not in sys.path:
-    sys.path.append(jukeboxDirectory)
-
-import jukebox.rpc.client as rpc
-
 logger = logging.getLogger(__name__)
 
 url = f"tcp://localhost:5555"
-client = rpc.RpcClient(url)
+
+context = zmq.Context.instance()
+queue = context.socket(zmq.REQ)
+queue.setsockopt(zmq.RCVTIMEO, 200)
+queue.setsockopt(zmq.LINGER, 200)
+queue.connect(url)
+
+default_ignore_response = False
+default_ignore_errors = False
+
+def enque_raw(self, request, ignore_response: Optional[bool] = None, ignore_errors: Optional[bool] = None):
+    if ignore_response is None:
+        ignore_response = default_ignore_response
+    if ignore_errors is None:
+        ignore_errors = default_ignore_errors
+
+    if ignore_response is False and 'id' not in request:
+        request['id'] = True
+
+    queue.send_string(json.dumps(request))
+
+    try:
+        server_response = json.loads(queue.recv())
+    except Exception as e:
+        if ignore_errors is False:
+            raise e
+        print(f"While waiting for server response: {e}")
+        return None
+        
+    if 'error' in server_response:
+        if ignore_errors is False:
+            print(server_response['error'].get('message', 'No error message provided'))
+
+        print("Ignored response error: "
+                        f"{server_response['error'].get('message', 'No error message provided')}")
+        return None
+
+    if ignore_response is True:
+        return None
+
+    return server_response['result']
+
+def enque(self, package: str, plugin: str, method: Optional[str] = None,
+            args: Optional[List] = None, kwargs: Optional[Dict] = None,
+            ignore_response: Optional[bool] = None,
+            ignore_errors: Optional[bool] = None):
+    request = {'package': package, 'plugin': plugin}
+    if method is not None:
+        request['method'] = method
+    if args is not None:
+        request['args'] = args
+    if kwargs is not None:
+        request['kwargs'] = kwargs
+    return enque_raw(request, ignore_response, ignore_errors)
 
 # Functions
 def playTestSound():
     subprocess.call(["aplay", "/usr/share/sounds/alsa/Rear_Left.wav"])
 
 def togglePlay():
-    response = client.enque('player', 'ctrl', 'play', args={})
+    response = enque('player', 'ctrl', 'play', args={})
+    {'package': package, 'plugin': plugin}
 
 def turnVolumeUp():
     response = requests.get(url="http://192.168.1.20:5005/0/volume/+5")
