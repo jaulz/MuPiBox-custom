@@ -37,10 +37,10 @@ def enque_raw(self, request, ignore_response: Optional[bool] = None, ignore_erro
 
     try:
         server_response = json.loads(queue.recv())
-    except Exception as e:
+    except Exception as exception:
         if ignore_errors is False:
-            raise e
-        print(f"While waiting for server response: {e}")
+            print(exception)
+        print(f"While waiting for server response: {exception}")
         return None
 
     if 'error' in server_response:
@@ -166,5 +166,7 @@ try:
                     function()
                 except KeyError:
                     logger.warning("Button " + keycode + " not mapped to any function.")
+                except Exception as exception:
+                    print(f"While waiting for server response: {exception}")
 except Exception as exception: 
     logger.error('An error with Buttons USB Encoder occurred: %s', repr(exception))
