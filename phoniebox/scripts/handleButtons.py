@@ -7,24 +7,19 @@ import logging
 import subprocess
 from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
 import argparse
+import jukebox.rpc.client as rpc
 
 logger = logging.getLogger(__name__)
+
+url = f"tcp://localhost:5555"
+client = rpc.RpcClient(url)
 
 # Functions
 def playTestSound():
     subprocess.call(["aplay", "/usr/share/sounds/alsa/Rear_Left.wav"])
 
 def togglePlay():
-    response = requests.get(url="http://localhost:5005/local")
-    response.raise_for_status()
-    
-    data = response.json()
-    print(data)
-    if "playing" in data:
-        if data["playing"] == True:
-            requests.get(url="http://localhost:5005/pause")
-        else:
-            requests.get(url="http://localhost:5005/play")
+    response = client.enque('player', 'ctrl', 'play', args={})
 
 def turnVolumeUp():
     response = requests.get(url="http://192.168.1.20:5005/0/volume/+5")
@@ -113,14 +108,6 @@ try:
                     function = buttonInterfaceToFunction[buttonInterface]
 
                     function()
-                    #function_name = button_map[button_string]
-                    #function_args = button_map[button_string + "_args"]
-                    #try:
-                    #    getattr(function_calls, function_name)(function_args)
-                    #except Exception:
-                    #    logger.warning(
-                    #        "Function " + function_name
-                    #        + " not found in function_calls.py (mapped from button: " + button_string + ")")
                 except KeyError:
                     logger.warning("Button " + keycode + " not mapped to any function.")
 except Exception as exception: 
