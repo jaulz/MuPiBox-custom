@@ -78,28 +78,16 @@ def togglePlay():
     response = enque('player', 'ctrl', 'toggle', args={})
 
 def turnVolumeUp():
-    response = requests.get(url="http://192.168.1.20:5005/0/volume/+5")
-    response.raise_for_status()
-    
-    data = response.json()
+    response = enque('volume', 'ctrl', 'change_volume', args={ 'step': 10 })
 
 def turnVolumeDown():
-    response = requests.get(url="http://192.168.1.20:5005/0/volume/-5")
-    response.raise_for_status()
-    
-    data = response.json()
+    response = enque('volume', 'ctrl', 'change_volume', args={ 'step': -10 })
 
 def playNextTrack():
-    response = requests.get(url="http://192.168.1.20:5005/0/next")
-    response.raise_for_status()
-    
-    data = response.json()
+    response = enque('player', 'ctrl', 'next', args={})
 
 def playPreviousTrack():
-    response = requests.get(url="http://192.168.1.20:5005/0/previous")
-    response.raise_for_status()
-    
-    data = response.json()
+    response = enque('player', 'ctrl', 'prev', args={})
 
 # Mapping from keycode to buttons interface
 keycodeToButtonInterface = {
