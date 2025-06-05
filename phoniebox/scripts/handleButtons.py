@@ -78,10 +78,10 @@ def togglePlay():
     response = enque('player', 'ctrl', 'toggle', args={})
 
 def turnVolumeUp():
-    response = enque('volume', 'ctrl', 'change_volume', args={ 'step': 10 })
+    response = enque('volume', 'ctrl', 'change_volume', args={ 'step': '10' })
 
 def turnVolumeDown():
-    response = enque('volume', 'ctrl', 'change_volume', args={ 'step': -10 })
+    response = enque('volume', 'ctrl', 'change_volume', args={ 'step': '-10' })
 
 def playNextTrack():
     response = enque('player', 'ctrl', 'next', args={})
