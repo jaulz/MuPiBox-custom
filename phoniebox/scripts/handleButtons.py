@@ -7,7 +7,13 @@ import logging
 import subprocess
 from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
 import argparse
-from /home/julian/RPi-Jukebox-RFID/src/jukebox import jukebox.rpc.client as rpc
+
+jukeboxDirectory = '/home/julian/RPi-Jukebox-RFID/src/jukebox'
+
+if jukeboxDirectory not in sys.path:
+    sys.path.append(jukeboxDirectory)
+
+import jukebox.rpc.client as rpc
 
 logger = logging.getLogger(__name__)
 
