@@ -9,6 +9,7 @@ import subprocess
 from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
 import argparse
 import zmq
+from typing import (List, Dict, Optional)
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +42,7 @@ def enque_raw(self, request, ignore_response: Optional[bool] = None, ignore_erro
             raise e
         print(f"While waiting for server response: {e}")
         return None
-        
+
     if 'error' in server_response:
         if ignore_errors is False:
             print(server_response['error'].get('message', 'No error message provided'))
