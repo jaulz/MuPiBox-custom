@@ -74,19 +74,24 @@ def enque(package: str, plugin: str, method: Optional[str] = None,
 def playTestSound():
     subprocess.call(["aplay", "/usr/share/sounds/alsa/Rear_Left.wav"])
 
+def play():
+    response = enque('player', 'ctrl', 'toggle', args={})
+
 def togglePlay():
     response = enque('player', 'ctrl', 'toggle', args={})
 
 def turnVolumeUp():
-    response = enque('volume', 'ctrl', 'change_volume', args={ 'step': '10' })
+    response = enque('volume', 'ctrl', 'change_volume', args=[10])
 
 def turnVolumeDown():
-    response = enque('volume', 'ctrl', 'change_volume', args={ 'step': '-10' })
+    response = enque('volume', 'ctrl', 'change_volume', args=[-10])
 
 def playNextTrack():
+    play()
     response = enque('player', 'ctrl', 'next', args={})
 
 def playPreviousTrack():
+    play()
     response = enque('player', 'ctrl', 'prev', args={})
 
 # Mapping from keycode to buttons interface
@@ -150,8 +155,13 @@ try:
                     buttonInterface = keycodeToButtonInterface[keycode]
                     print(buttonInterface)
                     function = buttonInterfaceToFunction[buttonInterface]
+                    print(function)
 
                     function()
+
+                    print("")
+                    print("")
+                    print("")
                 except KeyError:
                     logger.warning("Button " + keycode + " not mapped to any function.")
                 except Exception as exception:
