@@ -7,6 +7,7 @@ import logging
 import subprocess
 from evdev import InputDevice, list_devices, categorize, ecodes, KeyEvent
 import argparse
+import zmq
 
 jukeboxDirectory = '/home/julian/RPi-Jukebox-RFID/src/jukebox'
 
