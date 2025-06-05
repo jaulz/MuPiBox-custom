@@ -112,7 +112,7 @@ keycodeToButtonInterface = {
 
 # Mapping from button interface to function
 buttonInterfaceToFunction = {
-    "K1": playTestSound, # togglePlay,
+    "K1": togglePlay, # togglePlay,
     "K2": turnVolumeUp,
     "K3": turnVolumeDown,
     "K4": playNextTrack,
