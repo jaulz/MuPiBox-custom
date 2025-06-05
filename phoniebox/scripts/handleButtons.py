@@ -16,10 +16,7 @@ logger = logging.getLogger(__name__)
 url = f"tcp://localhost:5555"
 
 context = zmq.Context.instance()
-queue = context.socket(zmq.REQ)
-queue.setsockopt(zmq.RCVTIMEO, 200)
-queue.setsockopt(zmq.LINGER, 200)
-queue.connect(url)
+
 
 default_ignore_response = False
 default_ignore_errors = False
@@ -33,6 +30,10 @@ def enque_raw(request, ignore_response: Optional[bool] = None, ignore_errors: Op
     if ignore_response is False and 'id' not in request:
         request['id'] = True
 
+    queue = context.socket(zmq.REQ)
+    queue.setsockopt(zmq.RCVTIMEO, 200)
+    queue.setsockopt(zmq.LINGER, 200)
+    queue.connect(url)
     queue.send_string(json.dumps(request))
 
     try:
