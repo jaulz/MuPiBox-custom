@@ -24,7 +24,7 @@ queue.connect(url)
 default_ignore_response = False
 default_ignore_errors = False
 
-def enque_raw(self, request, ignore_response: Optional[bool] = None, ignore_errors: Optional[bool] = None):
+def enque_raw(request, ignore_response: Optional[bool] = None, ignore_errors: Optional[bool] = None):
     if ignore_response is None:
         ignore_response = default_ignore_response
     if ignore_errors is None:
@@ -56,7 +56,7 @@ def enque_raw(self, request, ignore_response: Optional[bool] = None, ignore_erro
 
     return server_response['result']
 
-def enque(self, package: str, plugin: str, method: Optional[str] = None,
+def enque(package: str, plugin: str, method: Optional[str] = None,
             args: Optional[List] = None, kwargs: Optional[Dict] = None,
             ignore_response: Optional[bool] = None,
             ignore_errors: Optional[bool] = None):
@@ -75,7 +75,6 @@ def playTestSound():
 
 def togglePlay():
     response = enque('player', 'ctrl', 'play', args={})
-    {'package': package, 'plugin': plugin}
 
 def turnVolumeUp():
     response = requests.get(url="http://192.168.1.20:5005/0/volume/+5")
