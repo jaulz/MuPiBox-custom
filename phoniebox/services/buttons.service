@@ -8,7 +8,7 @@ Group=dietpi
 Restart=always
 RestartSec=10
 WorkingDirectory=/home/dietpi/MuPiBox-custom
-ExecStart=/home/dietpi/MuPiBox-custom/scripts/handleButtons.py --deviceId=0
+ExecStart=/home/dietpi/MuPiBox-custom/scripts/handleButtons.py --deviceId=3
 
 [Install]
 WantedBy=multi-user.target

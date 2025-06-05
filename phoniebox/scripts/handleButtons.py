@@ -11,6 +11,9 @@ import argparse
 logger = logging.getLogger(__name__)
 
 # Functions
+def playTestSound():
+    subprocess.call(["aplay", "/usr/share/sounds/alsa/Rear_Left.wav"])
+
 def togglePlay():
     response = requests.get(url="http://localhost:5005/local")
     response.raise_for_status()
@@ -58,7 +61,7 @@ keycodeToButtonInterface = {
 
 # Mapping from button interface to function
 buttonInterfaceToFunction = {
-    "K1": togglePlay,
+    "K1": playTestSound, # togglePlay,
     "K2": turnVolumeUp,
     "K3": turnVolumeDown,
     "K4": playNextTrack,
